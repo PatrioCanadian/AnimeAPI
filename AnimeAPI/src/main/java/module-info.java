@@ -10,7 +10,11 @@ module com.animeapi.animeapi {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.annotation;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     opens com.animeapi.animeapi to javafx.fxml;
     exports com.animeapi.animeapi;
+    exports com.animeapi.animeapi.payload;
 }
