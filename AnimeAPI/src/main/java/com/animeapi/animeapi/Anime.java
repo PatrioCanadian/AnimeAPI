@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Anime extends Application {
 
@@ -15,9 +16,13 @@ public class Anime extends Application {
     @Override
     public void start(Stage primaryStage) {
         AnimeAPI API_Anime = new AnimeAPI();
+        Scanner ConsoleReader = new Scanner(System.in);
+        System.out.print("Entrer le nom de l'anime: ");
+        String AnimeName = ConsoleReader.nextLine();
+
         try{
-            List<AnimePayload> AnimeList = API_Anime.GetAnimes();
-            for(AnimePayload anime : AnimeList){
+            List<AnimePayload> ListAnime = API_Anime.GetAnimeByName(AnimeName);
+            for(AnimePayload anime : ListAnime){
                 System.out.println(anime.titlename);
             }
         }

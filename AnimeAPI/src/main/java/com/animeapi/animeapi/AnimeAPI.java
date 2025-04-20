@@ -35,6 +35,14 @@ public class AnimeAPI {
         List<AnimePayload> AnimeList = Converter.convertValue(JsonAnimes, new TypeReference<List<AnimePayload>>() {});
         return AnimeList;
     }
+
+    public List<AnimePayload> GetAnimeByName(String name) throws IOException, InterruptedException {
+      HttpResponse<String> Response = MakeRequest("anime?q=" + name);
+      JsonNode JsonResponse = Converter.readTree((Response.body()));
+      JsonNode JsonAnimes = JsonResponse.get("data");
+      List<AnimePayload> AnimeList = Converter.convertValue(JsonAnimes, new TypeReference<List<AnimePayload>>() {});
+      return AnimeList;
+    }
 }
 
 
