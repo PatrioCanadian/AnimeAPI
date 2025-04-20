@@ -28,7 +28,11 @@ public class Anime extends Application {
                 try {
                     List<AnimePayload> ListAnime = API_Anime.GetAnimes();
                     for (AnimePayload anime : ListAnime) {
-                        System.out.println(anime.titlename);
+                        System.out.print("nom: " + anime.titlename);
+                        System.out.print(" score: " + anime.score);
+                        System.out.print(" id: " + anime.id);
+                        System.out.print(" year: " + anime.date);
+                        System.out.println(" image: " + anime.image.Pané.ImageURL);
                     }
                 } catch (Exception Error) {
                     System.out.println(Error.getMessage());
@@ -49,7 +53,7 @@ public class Anime extends Application {
 
 
         }
-        
+
 
     }
 }

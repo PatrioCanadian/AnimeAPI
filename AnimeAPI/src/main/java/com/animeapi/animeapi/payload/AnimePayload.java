@@ -1,5 +1,6 @@
 package com.animeapi.animeapi.payload;
 
+import com.animeapi.animeapi.ressources.Image;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,4 +15,6 @@ public class AnimePayload {
     public int score;
     @JsonProperty("year")
     public int date;
+    @JsonProperty("images")
+    public Image image;
 }

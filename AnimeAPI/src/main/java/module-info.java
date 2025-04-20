@@ -17,4 +17,5 @@ module com.animeapi.animeapi {
     opens com.animeapi.animeapi to javafx.fxml;
     exports com.animeapi.animeapi;
     exports com.animeapi.animeapi.payload;
+    exports com.animeapi.animeapi.ressources;
 }
