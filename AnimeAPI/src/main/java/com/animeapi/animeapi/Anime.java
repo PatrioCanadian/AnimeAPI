@@ -1,5 +1,6 @@
 package com.animeapi.animeapi;
 
+import com.animeapi.animeapi.payload.AnimeCharacterEntry;
 import com.animeapi.animeapi.payload.AnimePayload;
 import com.fasterxml.jackson.databind.ext.SqlBlobSerializer;
 import javafx.application.Application;
@@ -21,6 +22,7 @@ public class Anime extends Application {
         Scanner ConsoleReader = new Scanner(System.in);
         System.out.println("1. Liste de tous les animes");
         System.out.println("2. Obtenir anime par nom");
+        System.out.println("3. Obtenir personnages de le numéro de l'anime indiqué");
         int Choix = Integer.parseInt(ConsoleReader.nextLine());
         switch (Choix) {
 
@@ -50,7 +52,22 @@ public class Anime extends Application {
                     System.out.println(Error.getMessage());
                 }
                 break;
+            case 3:
+                System.out.print("Entrer l'id de l'anime: ");
+                try (Scanner scanner = new Scanner(System.in)) {
+                    int animeId = scanner.nextInt();
 
+                    List<AnimeCharacterEntry> characters = API_Anime.GetCharactersByAnime(animeId);
+                    for (AnimeCharacterEntry entry : characters) {
+                        System.out.println("Nom: " + entry.Character.CharacterName);
+                        System.out.println("Rôle: " + entry.Role);
+                        System.out.println("Image: " + entry.Character.image.Pané.ImageURL);
+                        System.out.println("-------------------------");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Erreur: " + e.getMessage());
+                }
+                break;
 
         }
 

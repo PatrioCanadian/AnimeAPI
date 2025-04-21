@@ -1,5 +1,6 @@
 package com.animeapi.animeapi;
 
+import com.animeapi.animeapi.payload.AnimeCharacterEntry;
 import com.animeapi.animeapi.payload.AnimePayload;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -42,6 +43,13 @@ public class AnimeAPI {
       JsonNode JsonAnimes = JsonResponse.get("data");
       List<AnimePayload> AnimeList = Converter.convertValue(JsonAnimes, new TypeReference<List<AnimePayload>>() {});
       return AnimeList;
+    }
+
+    public List<AnimeCharacterEntry> GetCharactersByAnime(int id) throws IOException, InterruptedException {
+        HttpResponse<String> response = MakeRequest("anime/" + id + "/characters");
+        JsonNode jsonResponse = Converter.readTree(response.body());
+        JsonNode jsonData = jsonResponse.get("data");
+        return Converter.convertValue(jsonData, new TypeReference<List<AnimeCharacterEntry>>() {});
     }
 }
 

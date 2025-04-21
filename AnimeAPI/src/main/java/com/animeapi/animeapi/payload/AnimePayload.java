@@ -17,4 +17,5 @@ public class AnimePayload {
     public int date;
     @JsonProperty("images")
     public Image image;
+
 }
