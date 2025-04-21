@@ -1,6 +1,7 @@
 package com.animeapi.animeapi;
 
 import com.animeapi.animeapi.payload.AnimePayload;
+import com.animeapi.animeapi.payload.GetAnimePayload;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,12 +29,11 @@ public class AnimeAPI {
         return Response;
     }
 
-    public List<AnimePayload> GetAnimes() throws IOException, InterruptedException {
-        HttpResponse<String> Response = MakeRequest("anime");
+    public GetAnimePayload GetAnimes(int PageNumber) throws IOException, InterruptedException {
+        HttpResponse<String> Response = MakeRequest("anime?limit=10&page="+PageNumber);
         JsonNode JsonResponse = Converter.readTree(Response.body());
-        JsonNode JsonAnimes = JsonResponse.get("data");
-        List<AnimePayload> AnimeList = Converter.convertValue(JsonAnimes, new TypeReference<List<AnimePayload>>() {});
-        return AnimeList;
+        GetAnimePayload AnimePayload = Converter.convertValue(JsonResponse, new TypeReference<GetAnimePayload>() {});
+        return AnimePayload;
     }
 
     public List<AnimePayload> GetAnimeByName(String name) throws IOException, InterruptedException {

@@ -26,7 +26,7 @@ public class Anime extends Application {
 
             case 1:
                 try {
-                    List<AnimePayload> ListAnime = API_Anime.GetAnimes();
+                    List<AnimePayload> ListAnime = API_Anime.GetAnimes(1).Animes;
                     for (AnimePayload anime : ListAnime) {
                         System.out.print("nom: " + anime.titlename);
                         System.out.print(" score: " + anime.score);
