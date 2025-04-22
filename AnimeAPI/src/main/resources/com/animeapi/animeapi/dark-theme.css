@@ -1,0 +1,24 @@
+.root {
+    -fx-background-color: #121419;
+    -fx-text-fill: #ffffff;
+}
+
+.tab-pane, .tab {
+    -fx-background-color: #1a1a1a;
+}
+
+.tab .tab-label {
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: #1a1a1a;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-pane {
+    -fx-background: #121419;
+}

@@ -30,7 +30,7 @@ public class AnimeAPI {
     }
 
     public GetAnimePayload GetAnimes(int PageNumber) throws IOException, InterruptedException {
-        HttpResponse<String> Response = MakeRequest("anime?limit=10&page="+PageNumber);
+        HttpResponse<String> Response = MakeRequest("anime?limit=6&page="+PageNumber);
         JsonNode JsonResponse = Converter.readTree(Response.body());
         GetAnimePayload AnimePayload = Converter.convertValue(JsonResponse, new TypeReference<GetAnimePayload>() {});
         return AnimePayload;

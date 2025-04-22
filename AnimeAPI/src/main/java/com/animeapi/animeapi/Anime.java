@@ -1,7 +1,6 @@
 package com.animeapi.animeapi;
 
 import com.animeapi.animeapi.payload.AnimePayload;
-import com.fasterxml.jackson.databind.ext.SqlBlobSerializer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,7 +27,7 @@ public class Anime extends Application {
                 try {
                     List<AnimePayload> ListAnime = API_Anime.GetAnimes(1).Animes;
                     for (AnimePayload anime : ListAnime) {
-                        System.out.print("nom: " + anime.titlename);
+                        System.out.print("nom: " + anime.titleName);
                         System.out.print(" score: " + anime.score);
                         System.out.print(" id: " + anime.id);
                         System.out.print(" year: " + anime.date);
@@ -44,7 +43,7 @@ public class Anime extends Application {
                 try {
                     List<AnimePayload> ListAnime = API_Anime.GetAnimeByName(AnimeName);
                     for (AnimePayload anime : ListAnime) {
-                        System.out.println(anime.titlename);
+                        System.out.println(anime.titleName);
                     }
                 } catch (Exception Error) {
                     System.out.println(Error.getMessage());

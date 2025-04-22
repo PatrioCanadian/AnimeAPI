@@ -4,6 +4,7 @@ import com.animeapi.animeapi.payload.AnimePayload;
 import com.animeapi.animeapi.payload.GetAnimePayload;
 import com.animeapi.animeapi.ressources.PaginationInfo;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ public class AnimeApplication extends Application {
         AnimeAPI api = new AnimeAPI();
         GetAnimePayload initialResponse = api.GetAnimes(1);
 
-        //Crée la Pagination
+        //Crée la Pagination, la méthode est en bas
         Pagination pagination = createPagination(initialResponse);
 
         // Crée une tabulation vide
@@ -48,6 +49,9 @@ public class AnimeApplication extends Application {
         // On crée et affiche la scène
         Scene scene = new Scene(tabPane, 1160, 600);
         stage.setScene(scene);
+
+        // on ajoute le fichier de css
+        scene.getStylesheets().add(getClass().getResource("/com/animeapi/animeapi/dark-theme.css").toExternalForm());
         stage.show();
     }
 
@@ -55,24 +59,24 @@ public class AnimeApplication extends Application {
     public Pagination createPagination(GetAnimePayload payload) {
         // initialiser une nouvelle fois le API
         AnimeAPI api = new AnimeAPI();
-        // Prend le nombre total de pages depuis la réponse
+        // Prend le nombre total de pages depuis la réponse de l'api
         int totalPages = payload.PaginationInfo.TotalPages;
 
         // On initialise la pagination
         Pagination pagination = new Pagination(totalPages, 0);
+        // La liste avec les numéros en bas la pour savoir combien en afficher
         pagination.setMaxPageIndicatorCount(10);
 
         // On dit ce qui doit être fait quand on change de page
         pagination.setPageFactory(pageIndex -> {
-            // Conteneur qui affiche un spinner en attendant les données
-            StackPane pageContainer = new StackPane();
+            // Au début on affiche le spinner
+            StackPane container = new StackPane();
             ProgressIndicator spinner = new ProgressIndicator();
-            pageContainer.getChildren().add(spinner);
+            container.getChildren().add(spinner);
 
-            // Tâche asynchrone pour charger les données d'une page
-            Task<GridPane> loadPageTask = new Task<>() {
-                @Override
-                protected GridPane call() throws Exception {
+            // Pour le loading
+            new Thread(() -> {
+                try {
                     List<AnimePayload> animes = api.GetAnimes(pageIndex + 1).Animes;
 
                     GridPane gridPane = new GridPane();
@@ -80,35 +84,27 @@ public class AnimeApplication extends Application {
                     gridPane.setVgap(10);
 
                     for (int i = 0; i < animes.size(); i++) {
+                        // Ce fichier c'est pour le design d'une carte. J'utilise un autre logiciel (SceneBuilder) pour les créer.
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/animeapi/animeapi/anime-card.fxml"));
                         Parent card = loader.load();
+                        // Pour chacun de ces fichiers designs il peut y avoir un controller. Ça permet de gérer chaque élement dans le design.
                         AnimeCardController controller = loader.getController();
-                        controller.setData(animes.get(i).titlename, animes.get(i).image.Pané.LargeImageURL);
-
-                        int col = i % 5;
-                        int row = i / 5;
+                        controller.setData(animes.get(i));
+                        // Pour savoir ou placer l'élément dans la grille. le 3 c'est pour dire que c'est du 3/3
+                        int col = i % 3;
+                        int row = i / 3;
                         gridPane.add(card, col, row);
-                        GridPane.setHgrow(card, Priority.ALWAYS);
-                        GridPane.setVgrow(card, Priority.ALWAYS);
                     }
 
-                    return gridPane;
+                    // Mets les vrai données à la place du spinner
+                    Platform.runLater(() -> container.getChildren().setAll(gridPane));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Platform.runLater(() -> container.getChildren().setAll(new Label("Erreur lors du chargement.")));
                 }
+            }).start();
 
-                @Override
-                protected void succeeded() {
-                    pageContainer.getChildren().setAll(getValue());
-                }
-
-                @Override
-                protected void failed() {
-                    pageContainer.getChildren().setAll(new Label("Erreur lors du chargement de la page."));
-                }
-            };
-
-            new Thread(loadPageTask).start();
-
-            return pageContainer;
+            return container;
         });
 
         // On retourne la pagination
