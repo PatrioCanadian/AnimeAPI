@@ -17,5 +17,11 @@ public class AnimePayload {
     public int date;
     @JsonProperty("images")
     public Image image;
+    @JsonProperty("episodes")
+    public int episodes;
+    @JsonProperty("type")
+    public String Type;
+
+
 
 }
