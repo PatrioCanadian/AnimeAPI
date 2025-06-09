@@ -13,6 +13,7 @@ module com.animeapi.animeapi {
     requires com.fasterxml.jackson.annotation;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
     opens com.animeapi.animeapi to javafx.fxml;
     exports com.animeapi.animeapi;
