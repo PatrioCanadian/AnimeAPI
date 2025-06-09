@@ -19,4 +19,5 @@ module com.animeapi.animeapi {
     exports com.animeapi.animeapi;
     exports com.animeapi.animeapi.payload;
     exports com.animeapi.animeapi.ressources;
+
 }
