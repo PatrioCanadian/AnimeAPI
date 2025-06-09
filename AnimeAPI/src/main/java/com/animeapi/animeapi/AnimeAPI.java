@@ -57,10 +57,10 @@ public class AnimeAPI {
     public void GetEpisodeByAnime(AnimePayload InfosAnime) throws URISyntaxException, IOException {
         // one-piece
         String formattedName
-                = InfosAnime.titlename.replace(" ", "-");
+                = InfosAnime.titleName.replace(" ", "-");
         //v6.voiranime.com/anime/{nom}/{nom}-{episode}-vostfr/
         int firstEpisode = 1;
-        String numEpisode = String.valueOf(InfosAnime.episodes);
+        String numEpisode = String.valueOf(InfosAnime.NumberEpisode);
         int zerosCount = numEpisode.length() > 1 ? numEpisode.length() : numEpisode.length() + 1;
         String formattedEpisodeURL = formattedName
                 + "-" + String.format("%0"+ zerosCount + "d", firstEpisode);
@@ -74,10 +74,10 @@ public class AnimeAPI {
     public void GetAnimeMovie(AnimePayload InfosAnime) throws URISyntaxException, IOException {
         // one-piece
         String formattedName
-                = InfosAnime.titlename.replaceAll("[ :]+", "-");
+                = InfosAnime.titleName.replaceAll("[ :]+", "-");
         //v6.voiranime.com/anime/{nom}/{nom}-{episode}-vostfr/
         int firstEpisode = 1;
-        String numEpisode = String.valueOf(InfosAnime.episodes);
+        String numEpisode = String.valueOf(InfosAnime.NumberEpisode);
         int zerosCount = numEpisode.length() > 1 ? numEpisode.length() : numEpisode.length() + 1;
         String formattedMovieURL = "film-vostfr-" + formattedName;
         String URLLink = "https://v6.voiranime.com/anime/" + formattedName

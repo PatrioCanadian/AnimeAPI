@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<HBox fx:id="cardContainer" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #121419CC; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0); -fx-border-color: #333333;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.animeapi.animeapi.AnimeCardController">
+<HBox fx:id="AnimeInfoCard" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseLeave" prefWidth="400.0" spacing="10.0" style="-fx-background-color: #121419CC; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0); -fx-border-color: #333333;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.animeapi.animeapi.AnimeCardController">
    <children>
-      <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox alignment="CENTER_LEFT" prefHeight="200.0" spacing="15.0" HBox.hgrow="ALWAYS">
+      <Pane maxHeight="200.0" maxWidth="150.0" prefHeight="200.0" prefWidth="150.0">
          <children>
-            <Label fx:id="seasonLabel" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <ImageView fx:id="ImageCard" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" scaleZ="0.0" />
+            <SVGPath fx:id="PlayButton" content="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z" fill="WHITE" layoutX="61.0" layoutY="88.0" onMouseClicked="#WatchAnime" strokeLineCap="ROUND" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+         </children>
+      </Pane>
+      <VBox alignment="CENTER_LEFT" maxWidth="218.0" prefHeight="200.0" spacing="15.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="AnimeSeason" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font size="10.0" />
                </font>
             </Label>
             <VBox>
                <children>
-                  <Text fx:id="japaneseTitleLabel" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                  <Text fx:id="AnimeJapaneseTitle" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                      <font>
                         <Font name="System Italic" size="9.0" />
                      </font>
                   </Text>
-                  <Label fx:id="titleLabel" text="Label" textFill="WHITE" VBox.vgrow="ALWAYS">
+                  <Label fx:id="AnimeTitle" text="Label" textFill="WHITE" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <Label fx:id="episodeLabel" layoutX="20.0" layoutY="77.0" text="Label" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Label fx:id="NumberOfEpisodes" layoutX="20.0" layoutY="77.0" text="Label" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
@@ -48,7 +59,7 @@
                               <Font size="17.0" />
                            </font>
                         </Text>
-                        <Label fx:id="scoreLabel" text="Label" textFill="WHITE">
+                        <Label fx:id="AnimeScore" text="Label" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -62,7 +73,7 @@
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <Label fx:id="rankLabel" text="Label" textFill="WHITE" textOverrun="CLIP" wrapText="true">
+                        <Label fx:id="AnimeRank" text="Label" textFill="WHITE" textOverrun="CLIP" wrapText="true">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -73,7 +84,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
-                  <Label fx:id="genre1" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 1" textFill="WHITE" HBox.hgrow="ALWAYS">
+                  <Label fx:id="FirstGenre" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 1" textFill="WHITE" HBox.hgrow="ALWAYS">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -84,7 +95,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="genre2" layoutX="93.0" layoutY="10.0" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 2" textFill="WHITE">
+                  <Label fx:id="SecondGenre" layoutX="93.0" layoutY="10.0" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 2" textFill="WHITE">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -92,7 +103,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="genre3" layoutX="119.0" layoutY="10.0" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 3" textFill="WHITE">
+                  <Label fx:id="ThirdGenre" layoutX="119.0" layoutY="10.0" style="-fx-background-color: #1f2635; -fx-background-radius: 10px; -fx-border-radius: 10px;" text="Genre 3" textFill="WHITE">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

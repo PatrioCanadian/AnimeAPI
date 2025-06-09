@@ -19,6 +19,8 @@ public class AnimePayload {
     public String titleJapanese;
     @JsonProperty("score")
     public double score;
+    @JsonProperty("type")
+    public String Type;
     @JsonProperty("year")
     public int date;
     @JsonProperty("images")

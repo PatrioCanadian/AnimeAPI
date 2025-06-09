@@ -22,7 +22,7 @@ public class Anime extends Application {
     public void start(Stage primaryStage) {
         AnimeAPI API_Anime = new AnimeAPI();
         try {
-            List<AnimePayload> ListAnime = API_Anime.GetAnimes();
+            List<AnimePayload> ListAnime = API_Anime.GetAnimes(1).Animes;
             AnimePayload Mabite = ListAnime.get(1);
 
             if (Mabite.Type.equals("Movie")) {
